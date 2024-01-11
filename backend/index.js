@@ -22,7 +22,9 @@ mongoose
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/blog", blogRoutes);
 app.get("/", (req, res) =>
-  res.status(200).json({ success: true, message: "Server is listening" })
+  res
+    .status(200)
+    .json({ success: true, message: "Server is listening for requests" })
 );
 // app.use(express.static(path.join(__dirname, "/client/dist")));
 // app.get("*", (req, res) => {
