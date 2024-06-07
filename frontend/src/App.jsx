@@ -1,10 +1,11 @@
 import React from 'react'
-
+import { Routes, Route } from 'react-router-dom'
+import Login from './pages/Login'
 const App = () => {
   return (
-    <div>
-      <h1 className='bg-green-500'>Lorem ipsum dolor sit amet.</h1>
-    </div>
+    <Routes>
+      <Route path='/login' element={<Login />} />
+    </Routes>
   )
 }
 
