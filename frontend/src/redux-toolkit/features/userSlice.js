@@ -140,65 +140,71 @@ const userSlice = createSlice({
       state.currentUser = "";
     },
   },
-  extraReducers: {
-    [registerUser.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [registerUser.fulfilled]: (state, action) => {
-      state.loading = false;
-    },
-    [registerUser.rejected]: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
-    },
-    [loginUSer.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [loginUSer.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.currentUser = action.payload;
-    },
-    [loginUSer.rejected]: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
-      state.error = action.payload;
-    },
-    [updateUser.pending]: (state) => {
-      state.loading = true;
-    },
-    [updateUser.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.currentUser = action.payload;
-    },
-    [updateUser.rejected]: (state, action) => {
-      (state.loading = false), (state.error = action.payload);
-    },
-    [getAllAuthors.pending]: (state) => {
-      state.loading = true;
-    },
-    [getAllAuthors.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.authors = action.payload;
-    },
-    [getAllAuthors.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    [validateUser.rejected]: (state, action) => {
-      state.loading = false;
-      state.currentUser = "";
-      state.authors = null;
-    },
-    [deleteUser.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [deleteUser.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.authors = state.authors.filter(
-        (author) => author._id != action.payload._id
-      );
-      state.currentUser = "";
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(registerUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      .addCase(loginUSer.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(loginUSer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(loginUSer.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      .addCase(getAllAuthors.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getAllAuthors.fulfilled, (state, action) => {
+        state.loading = false;
+        state.authors = action.payload;
+      })
+      .addCase(getAllAuthors.rejected, (state, action) => {
+        state.loading = true;
+        state.error = action.payload;
+      })
+      .addCase(validateUser.rejected, (state, action) => {
+        state.loading = false;
+        state.currentUser = "";
+        state.authors = null;
+      })
+      .addCase(deleteUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.authors = state.authors.filter(
+          (author) => author._id != action.payload._id
+        );
+        state.currentUser = "";
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 export const { logout } = userSlice.actions;
