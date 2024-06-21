@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   blogs: [],
 };
-const API_URL = "http://localhost:3000";
+const API_URL = "https://blog-beta-backend.vercel.app";
 // add new blog
 export const addBlog = createAsyncThunk("addBlog/blogsSlice", async (data) => {
   const headers = new Headers();
@@ -15,6 +15,7 @@ export const addBlog = createAsyncThunk("addBlog/blogsSlice", async (data) => {
     method: "POST",
     headers,
     body: raw,
+    credentials: "include",
   };
   let res = await fetch(API_URL + "/api/v1/blog/add-blog", requestOptions);
   if (!res.ok) {
@@ -60,6 +61,7 @@ export const updateABlog = createAsyncThunk(
       method: "PATCH",
       headers,
       body: raw,
+      credentials: "include",
     };
     let res = await fetch(
       API_URL + `/api/v1/blog/update-blog/${data._id}`,
@@ -87,6 +89,7 @@ export const deleteBlog = createAsyncThunk(
     let requestOptions = {
       method: "DELETE",
       headers,
+      credentials: "include",
     };
     let res = await fetch(
       API_URL + `/api/v1/blog/delete-blog/${id}`,

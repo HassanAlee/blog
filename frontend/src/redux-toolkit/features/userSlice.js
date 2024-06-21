@@ -6,7 +6,7 @@ const initialState = {
   currentUser: "",
   authors: [],
 };
-const API_URL = "http://localhost:3000";
+const API_URL = "https://blog-beta-backend.vercel.app";
 // register user
 export const registerUser = createAsyncThunk(
   "userSlice/register",
@@ -43,6 +43,7 @@ export const loginUSer = createAsyncThunk(
       method: "POST",
       headers,
       body: raw,
+      credentials: "include",
     };
     let res = await fetch(API_URL + "/api/v1/user/login", requestOptions);
     if (!res.ok) {
@@ -66,6 +67,7 @@ export const validateUser = createAsyncThunk(
     const requestOptions = {
       method: "Get",
       headers,
+      credentials: "include",
     };
     let res = await fetch(API_URL + "/api/v1/user/verifyToken", requestOptions);
     if (res.status == 401) {
@@ -84,6 +86,7 @@ export const updateUser = createAsyncThunk(
       method: "PATCH",
       headers,
       body: raw,
+      credentials: "include",
     };
     let res = await fetch(
       API_URL + "/api/v1/user/update-profile",
@@ -124,6 +127,7 @@ export const deleteUser = createAsyncThunk(
     const requestOptions = {
       method: "DELETE",
       headers,
+      credentials: "include",
     };
     let res = await fetch(
       API_URL + `/api/v1/user/delete-account/${id}`,

@@ -2,13 +2,19 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
-app.use(cors());
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user.routes.js");
 const blogRoutes = require("./routes/blog.routes.js");
 const port = process.env.PORT || 8080;
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 // connecting to the db
 mongoose
