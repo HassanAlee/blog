@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   blogs: [],
 };
+const API_URL = "http://localhost:3000";
 // add new blog
 export const addBlog = createAsyncThunk("addBlog/blogsSlice", async (data) => {
   const headers = new Headers();
@@ -15,7 +16,7 @@ export const addBlog = createAsyncThunk("addBlog/blogsSlice", async (data) => {
     headers,
     body: raw,
   };
-  let res = await fetch("/api/v1/blog/add-blog", requestOptions);
+  let res = await fetch(API_URL + "/api/v1/blog/add-blog", requestOptions);
   if (!res.ok) {
     res = await res.json();
     toast.error(res.message, {
@@ -38,7 +39,7 @@ export const getAllBlogs = createAsyncThunk(
       method: "GET",
       headers,
     };
-    let res = await fetch("/api/v1/blog/get-Blogs", requestOptions);
+    let res = await fetch(API_URL + "/api/v1/blog/get-Blogs", requestOptions);
     if (!res.ok) {
       res = await res.json();
       thunkAPI.rejectWithValue(res.message);
@@ -61,7 +62,7 @@ export const updateABlog = createAsyncThunk(
       body: raw,
     };
     let res = await fetch(
-      `/api/v1/blog/update-blog/${data._id}`,
+      API_URL + `/api/v1/blog/update-blog/${data._id}`,
       requestOptions
     );
     if (!res.ok) {
@@ -87,7 +88,10 @@ export const deleteBlog = createAsyncThunk(
       method: "DELETE",
       headers,
     };
-    let res = await fetch(`/api/v1/blog/delete-blog/${id}`, requestOptions);
+    let res = await fetch(
+      API_URL + `/api/v1/blog/delete-blog/${id}`,
+      requestOptions
+    );
     if (!res.ok) {
       toast.error(res.message, {
         duration: 5000,

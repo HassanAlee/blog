@@ -6,6 +6,7 @@ const initialState = {
   currentUser: "",
   authors: [],
 };
+const API_URL = "http://localhost:3000";
 // register user
 export const registerUser = createAsyncThunk(
   "userSlice/register",
@@ -18,10 +19,7 @@ export const registerUser = createAsyncThunk(
       headers: headers,
       body: raw,
     };
-    let res = await fetch(
-      "http://localhost:3000/api/v1/user/register",
-      requestOptions
-    );
+    let res = await fetch(API_URL + "/api/v1/user/register", requestOptions);
     if (!res.ok) {
       res = await res.json();
       toast.error(res.message, {
@@ -46,7 +44,7 @@ export const loginUSer = createAsyncThunk(
       headers,
       body: raw,
     };
-    let res = await fetch("/api/v1/user/login", requestOptions);
+    let res = await fetch(API_URL + "/api/v1/user/login", requestOptions);
     if (!res.ok) {
       res = await res.json();
       toast.error(res.message, {
@@ -69,7 +67,7 @@ export const validateUser = createAsyncThunk(
       method: "Get",
       headers,
     };
-    let res = await fetch("/api/v1/user/verifyToken", requestOptions);
+    let res = await fetch(API_URL + "/api/v1/user/verifyToken", requestOptions);
     if (res.status == 401) {
       thunkAPI.rejectWithValue("not found");
     }
@@ -87,7 +85,10 @@ export const updateUser = createAsyncThunk(
       headers,
       body: raw,
     };
-    let res = await fetch("/api/v1/user/update-profile", requestOptions);
+    let res = await fetch(
+      API_URL + "/api/v1/user/update-profile",
+      requestOptions
+    );
     if (!res.ok) {
       res = await res.json();
       toast.error(res.message, {
@@ -104,7 +105,7 @@ export const updateUser = createAsyncThunk(
 export const getAllAuthors = createAsyncThunk(
   "userSlice/getAllAuthors",
   async (thunkAPI) => {
-    let res = await fetch("/api/v1/user/all-authors");
+    let res = await fetch(API_URL + "/api/v1/user/all-authors");
     if (!res.ok) {
       res = await res.json();
       thunkAPI.rejectWithValue(res.message);
@@ -124,7 +125,10 @@ export const deleteUser = createAsyncThunk(
       method: "DELETE",
       headers,
     };
-    let res = await fetch(`/api/v1/user/delete-account/${id}`, requestOptions);
+    let res = await fetch(
+      API_URL + `/api/v1/user/delete-account/${id}`,
+      requestOptions
+    );
     if (!res.ok) {
       toast.error("Something went wrong");
     }
