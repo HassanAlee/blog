@@ -6,7 +6,8 @@ const initialState = {
   currentUser: "",
   authors: [],
 };
-const API_URL = "https://blog-beta-backend.vercel.app";
+// const API_URL = "https://blog-beta-backend.vercel.app";
+const API_URL = "http://localhost:3000";
 // register user
 export const registerUser = createAsyncThunk(
   "userSlice/register",
