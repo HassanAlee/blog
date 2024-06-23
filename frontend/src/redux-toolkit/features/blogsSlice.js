@@ -5,8 +5,8 @@ const initialState = {
   loading: false,
   blogs: [],
 };
-// const API_URL = "https://blog-beta-backend.vercel.app";
-const API_URL = "http://localhost:3000";
+const API_URL = "https://blog-beta-backend.vercel.app";
+// const API_URL = "http://localhost:3000";
 // add new blog
 export const addBlog = createAsyncThunk("addBlog/blogsSlice", async (data) => {
   const headers = new Headers();
